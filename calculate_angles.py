@@ -9,7 +9,25 @@
 
 import math
 
+# function that asks the user if they want to play again
+def play_again():
+    while True:
+        # getting user input
+        yes_no = input("Do you want to play again? (y/n)")
 
+        # they want to play again
+        if yes_no.lower() == "y":
+            return True
+
+        # they don't want to play again
+        if yes_no.lower() == "n":
+            return False
+
+        # user input invalid
+        print("please make sure your input is valid.")
+
+
+# function that calculates an unknown angle given the opposite and the hypotenuse
 def calc_angles(opposite, hypotenuse):
     opp_over_hyp = opposite / hypotenuse
     angle_theta = math.asin(opp_over_hyp) * 57.2958
@@ -40,13 +58,16 @@ def error_checking(user_input):
 
 def main():
     while True:
+        print()
         # user input for the first leg
         leg_1_str = input("Enter the length of one of the legs (no units): ")
         if error_checking(leg_1_str) != 0:
             leg_1_fl = error_checking(leg_1_str)
 
-        # user input is invalid
+        # user input is valid
         else:
+            if play_again():
+                continue
             break
 
         # user input for the other leg
@@ -56,6 +77,8 @@ def main():
 
         # user input is invalid
         else:
+            if play_again():
+                continue
             break
 
         # user input for the hypotenuse
@@ -66,6 +89,9 @@ def main():
             # hypotenuse is not the longest side
             if hypotenuse_fl < leg_1_fl or hypotenuse_fl < leg_2_fl:
                 print("The hypotenuse needs to be the longest side!")
+                if play_again():
+                    continue
+                break
 
             # all input is valid
             else:
@@ -74,11 +100,16 @@ def main():
 
                 print()
                 print(
-                    f"The angle opposite to {leg_1_str}units is {theta_1:.2f}° and the angle opposite to {leg_2_str}units is {theta_2:.2f}°."
+                    f"The angle opposite to the side with {leg_1_str}units is {theta_1:.2f}° and the angle opposite to the side with {leg_2_str}units is {theta_2:.2f}°."
                 )
+                if play_again():
+                    continue
+                break
 
         # user input is invalid
         else:
+            if play_again():
+                continue
             break
 
 
